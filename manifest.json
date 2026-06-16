@@ -1,7 +1,7 @@
 {
-  "name": "電圧降下・幹線/分岐回路 選定アプリ",
+  "name": "内線規程対応 幹線・分岐回路選定アプリ",
   "short_name": "電圧降下計算",
-  "description": "内線規程参考の電圧降下・幹線/分岐回路選定PWA",
+  "description": "Ver.6.1: 電圧降下・許容電流・保護装置整合を判定するPWA",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

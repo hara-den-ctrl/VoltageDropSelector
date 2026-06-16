@@ -1,26 +1,16 @@
-# 電圧降下・幹線/分岐回路 選定アプリ PWA版
+# VoltageDropSelector Ver.6.1 PWA
 
-GitHub Pagesで公開して、iPhoneのSafariから「ホーム画面に追加」すればアプリ風に起動できます。
+内線規程対応の幹線・分岐回路選定アプリです。
 
-## アップロードするファイル
+## Ver.6.1 変更点
 
-- index.html
-- manifest.json
-- service-worker.js
-- icon-180.png
-- icon-192.png
-- icon-512.png
+- 開発メモを削除
+- 出典・注意事項を折りたたみ表示に変更
+- 基準データ・出典設定を常時表示せず「出典情報」ボタンへ移動
+- 現場名・盤/回路名などの入力内容をブラウザに自動保存
+- 配線方式変更時に使用電圧と芯数を自動連動
+- iPhoneホーム画面追加・オフライン起動対応
 
-## GitHub Pages公開手順
+## GitHub Pages
 
-1. GitHubで新規リポジトリを作成
-2. このフォルダ内のファイルをすべてアップロード
-3. Settings → Pages
-4. Sourceを「Deploy from a branch」へ変更
-5. Branchを「main」、フォルダを「/root」にしてSave
-6. 表示されたURLをiPhoneのSafariで開く
-7. 共有 → ホーム画面に追加
-
-## 注意
-
-許容電流値などは参考資料ベースの編集可能マスタです。実務で使う場合は必ず最新の内線規程、メーカー資料、社内基準で確認・修正してください。
+リポジトリ直下にこの一式をアップロードし、Settings → Pages で main / root を公開してください。

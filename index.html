@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>電圧降下・幹線/分岐回路 選定アプリ Ver.6.0 PWA</title>
+<title>内線規程対応 幹線・分岐回路選定アプリ Ver.6.1 PWA</title>
 <style>
 :root{--bg:#f4f7fb;--card:#fff;--txt:#1f2937;--muted:#667085;--line:#d0d7e2;--primary:#2563eb;--ok:#0f766e;--ng:#b42318;--warn:#b54708;--soft:#eef4ff}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--txt)}
@@ -13,7 +13,7 @@ h2{font-size:18px;margin:0 0 12px}.formgrid{display:grid;grid-template-columns:r
 .inputwrap{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}.inputwrap input,.inputwrap select{flex:1;min-width:0;border:0;padding:11px;font-size:15px;background:#fff}.inputwrap input:focus,.inputwrap select:focus{outline:2px solid #93c5fd;outline-offset:-2px}.unit{display:flex;align-items:center;justify-content:center;min-width:58px;padding:0 10px;background:#f8fafc;border-left:1px solid var(--line);font-size:13px;color:#475467;font-weight:700}
 button{border:0;border-radius:10px;padding:10px 13px;font-weight:800;cursor:pointer}.primary{background:var(--primary);color:#fff}.secondary{background:#e5e7eb;color:#111827}.ghost{background:#fff;border:1px solid var(--line);color:#344054}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.mini{padding:6px 9px;font-size:12px}
 .resultbox{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fbfdff}.metric b{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.metric span{font-size:20px;font-weight:900}.ok{color:var(--ok)}.ng{color:var(--ng)}.warn{color:var(--warn)}.pill{display:inline-block;border-radius:999px;padding:5px 9px;font-weight:800;font-size:12px}.pill.ok{background:#ccfbf1}.pill.ng{background:#fee4e2}.pill.warn{background:#fef0c7}
-table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{background:#f8fafc;color:#475467}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}.selected{background:#ecfdf3}.small{font-size:12px;color:var(--muted);line-height:1.65}.note{background:#fffbeb;border:1px solid #fedf89;border-radius:12px;padding:12px;color:#7a2e0e;font-size:13px;line-height:1.6}.hide{display:none} textarea{width:100%;min-height:104px;border:1px solid var(--line);border-radius:10px;padding:10px;font-family:ui-monospace,Consolas,monospace;font-size:12px}.masterCell{width:86px;border:1px solid var(--line);border-radius:8px;padding:7px;text-align:right}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.tab{border:1px solid var(--line);background:#fff;color:#344054}.tab.active{background:#dbeafe;border-color:#93c5fd;color:#1d4ed8}.plan li{margin-bottom:5px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{background:#f8fafc;color:#475467}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}.selected{background:#ecfdf3}.small{font-size:12px;color:var(--muted);line-height:1.65}.note{background:#fffbeb;border:1px solid #fedf89;border-radius:12px;padding:12px;color:#7a2e0e;font-size:13px;line-height:1.6}.hide{display:none} textarea{width:100%;min-height:104px;border:1px solid var(--line);border-radius:10px;padding:10px;font-family:ui-monospace,Consolas,monospace;font-size:12px}.masterCell{width:86px;border:1px solid var(--line);border-radius:8px;padding:7px;text-align:right}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.tab{border:1px solid var(--line);background:#fff;color:#344054}.tab.active{background:#dbeafe;border-color:#93c5fd;color:#1d4ed8}.plan li{margin-bottom:5px}.fullspan{grid-column:1/-1}
 .modalOverlay{position:fixed;inset:0;background:rgba(15,23,42,.48);display:none;align-items:flex-start;justify-content:center;padding:24px 12px;z-index:9999;overflow:auto}.modalOverlay.show{display:flex}.modalPanel{width:min(1120px,100%);background:#fff;border-radius:16px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(15,23,42,.24);padding:16px}.modalHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:12px}.modalHeader h2{margin:0}.closeBtn{background:#f3f4f6;border:1px solid var(--line);color:#111827;min-width:42px}
 @media print{.modalOverlay{display:none!important}}
 
@@ -30,47 +30,24 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:8px;borde
 </head>
 <body>
 <header>
-  <h1>電圧降下・幹線/分岐回路 選定アプリ Ver.6.0 PWA</h1>
+  <h1>内線規程対応 幹線・分岐回路選定アプリ Ver.6.1 PWA</h1>
   <p>基準許容電流編集を表形式に改善。負荷種別を復元。DV許容電流は関西電力送配電 託送供給等約款 2024年4月1日実施 別表-30を参照。</p>
 </header>
 <main>
-  <div class="note no-print">準拠対象：内線規程 第14版 JEAC 8001-2022。注意：本アプリの初期値は計算確認用の参考値を含みます。正式運用では内線規程・メーカー資料・電力会社資料の値を確認してください。DVは関西電力送配電「託送供給等約款（2024年4月1日実施）」別表-30の硬銅線 許容電流表を参照して初期値化しています。ケーブル許容電流の参考資料として住電HSTケーブル「設備用電線・ケーブルガイドブック」も出典に追加しました。</div>
+  <details class="note no-print" style="margin-bottom:16px">
+    <summary style="font-weight:800;cursor:pointer">出典・注意事項</summary>
+    <div style="margin-top:8px">準拠対象：内線規程 第14版 JEAC 8001-2022。注意：本アプリの初期値は計算確認用の参考値を含みます。正式運用では内線規程・メーカー資料・電力会社資料の値を確認してください。DVは関西電力送配電「託送供給等約款（2024年4月1日実施）」別表-30の硬銅線 許容電流表を参照して初期値化しています。ケーブル許容電流の参考資料として住電HSTケーブル「設備用電線・ケーブルガイドブック」も出典に追加しました。</div>
+  </details>
 
-  <section class="card no-print">
-    <h2>今回の改良プラン</h2>
-    <ol class="small plan">
-      <li><b>JSON直編集を廃止</b>：ケーブル種別を選ぶと、その種別のサイズ・許容電流だけを表形式で編集。</li>
-      <li><b>編集ミス防止</b>：サイズ、断面積、芯数、基準許容電流を列分けし、許容電流だけを直接編集しやすくする。</li>
-      <li><b>CSV一括編集</b>：表編集に加えて「CSV貼付け/書き出し」を用意し、Excelからまとめて修正可能にする。</li>
-      <li><b>負荷種別復元</b>：モーター、ポンプ、エアコン、LED照明、コンセント、インバータ選択で力率[%]を自動入力。</li>
-      <li><b>DVデータ修正</b>：DV 2心・3心を分け、単相3線式は注記に従い2芯値を使えるようにする。</li>
-    </ol>
-  </section>
+  <input id="standardName" type="hidden" value="内線規程 第14版 JEAC 8001-2022">
 
   <div class="grid">
-    <section class="card">
-      <h2>基準データ・出典設定</h2>
-      <div class="formgrid">
-        <div class="field"><label>準拠規程</label><div class="inputwrap"><input id="standardName" value="内線規程 第14版 JEAC 8001-2022"><span class="unit">規程</span></div></div>
-        <div class="field"><label>回路区分</label><div class="inputwrap"><select id="circuitType"><option>幹線</option><option>分岐回路</option></select><span class="unit">区分</span></div><div class="hint">区分に関係なく全ケーブル種を選択できます。</div></div>
-        <div class="field full"><label>参考資料</label><div class="small">
-          ・内線規程 第14版 JEAC 8001-2022：判定基準・補正考え方<br>
-          ・CADEWA ECO 2025資料：電路計算書・帳票レイアウト参考<br>
-          ・電気工事技術情報 Vol.33：電圧降下・電路計算解説参考<br>
-          ・三ッ星 技術資料 P42-48：ケーブル技術データ参考<br>
-          ・SWCC 電線・ケーブル総合カタログ：CV/CVT/EM系ケーブルデータ参考<br>
-          ・住電HSTケーブル 設備用電線・ケーブルガイドブック：ケーブル許容電流・仕様参考<br>
-          ・関西電力送配電 託送供給等約款（2024年4月1日実施）別表-30：DV・IV・VV等の硬銅線許容電流参考<br>
-          ・電工ランド 電圧降下 許容範囲資料：こう長別の許容電圧降下率 自動設定参考
-        </div></div>
-      </div>
-    </section>
-
-    <section class="card">
+    <section class="card fullspan">
       <h2>入力条件</h2>
       <div class="formgrid">
         <div class="field"><label>現場名</label><div class="inputwrap"><input id="siteName" placeholder="例：〇〇新築工事"><span class="unit">名</span></div></div>
         <div class="field"><label>盤・回路名</label><div class="inputwrap"><input id="circuitName" placeholder="例：L-1 幹線"><span class="unit">名</span></div></div>
+        <div class="field"><label>回路区分</label><div class="inputwrap"><select id="circuitType"><option>幹線</option><option>分岐回路</option></select><span class="unit">区分</span></div><div class="hint">区分に関係なく全ケーブル種を選択できます。</div></div>
         <div class="field"><label>配線方式</label><div class="inputwrap"><select id="system" onchange="handleSystemChange()"><option value="1p2w">単相2線式</option><option value="1p3w">単相3線式</option><option value="3p3w" selected>三相3線式</option><option value="3p4w">三相4線式</option></select><span class="unit">方式</span></div></div>
         <div class="field"><label>使用電圧 [V]</label><div class="inputwrap"><select id="voltage"><option value="100">100V</option><option value="100/200">100/200V</option><option value="200" selected>200V</option><option value="400">400V</option></select><span class="unit">V</span></div></div>
         <div class="field"><label>入力方式</label><div class="inputwrap"><select id="inputMode" onchange="toggleMode()"><option value="current">電流入力</option><option value="kw" selected>容量入力[kW]</option><option value="kva">容量入力[kVA]</option></select><span class="unit">方式</span></div></div>
@@ -90,7 +67,27 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:8px;borde
         <div class="field"><label>周囲温度 [℃]</label><div class="inputwrap"><input id="temp" type="number" value="30"><span class="unit">℃</span></div></div>
         <div class="field"><label>同一管内回路数 [回路]</label><div class="inputwrap"><input id="circuits" type="number" value="1" min="1"><span class="unit">回路</span></div></div>
       </div>
-      <div class="actions"><button class="primary" onclick="calculate()">計算する</button><button class="secondary" onclick="saveHistory()">履歴保存</button><button class="ghost" onclick="openMasterModal()">マスタ編集</button><button class="ghost" onclick="exportCsv()">CSV出力</button><button class="ghost" onclick="window.print()">PDF保存/印刷</button></div>
+      <div class="actions"><button class="primary" onclick="calculate()">計算する</button><button class="secondary" onclick="saveHistory()">履歴保存</button><button class="ghost" onclick="openMasterModal()">マスタ編集</button><button class="ghost" onclick="openSourceModal()">出典情報</button><button class="ghost" onclick="exportCsv()">CSV出力</button><button class="ghost" onclick="window.print()">PDF保存/印刷</button></div>
+    </section>
+  </div>
+
+  <div id="sourceModal" class="modalOverlay no-print" onclick="if(event.target===this)closeSourceModal()">
+    <section class="modalPanel">
+      <div class="modalHeader"><div><h2>出典情報・注意事項</h2><div class="hint">判定基準・参考資料の確認用です。</div></div><button class="closeBtn" onclick="closeSourceModal()">×</button></div>
+      <div class="formgrid">
+        <div class="field"><label>準拠規程</label><div class="inputwrap"><input id="standardNameView" value="内線規程 第14版 JEAC 8001-2022" readonly><span class="unit">規程</span></div></div>
+        <div class="field full"><label>参考資料</label><div class="small">
+          ・内線規程 第14版 JEAC 8001-2022：判定基準・補正考え方<br>
+          ・CADEWA ECO 2025資料：電路計算書・帳票レイアウト参考<br>
+          ・電気工事技術情報 Vol.33：電圧降下・電路計算解説参考<br>
+          ・三ッ星 技術資料 P42-48：ケーブル技術データ参考<br>
+          ・SWCC 電線・ケーブル総合カタログ：CV/CVT/EM系ケーブルデータ参考<br>
+          ・住電HSTケーブル 設備用電線・ケーブルガイドブック：ケーブル許容電流・仕様参考<br>
+          ・関西電力送配電 託送供給等約款（2024年4月1日実施）別表-30：DV・IV・VV等の硬銅線許容電流参考<br>
+          ・電工ランド 電圧降下 許容範囲資料：こう長別の許容電圧降下率 自動設定参考
+        </div></div>
+        <div class="field full"><label>注意事項</label><div class="note">本アプリの初期値は計算確認用の参考値を含みます。正式運用では、必ず内線規程・メーカー資料・電力会社資料の値と照合してください。</div></div>
+      </div>
     </section>
   </div>
 
@@ -100,7 +97,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:8px;borde
       <h2>ケーブル別 基準許容電流[A] 編集</h2>
     <div class="formgrid">
       <div class="field"><label>編集対象ケーブル</label><div class="inputwrap"><select id="masterCable" onchange="renderMasterEditor()"></select><span class="unit">種別</span></div></div>
-      <div class="field"><label>表示フィルタ</label><div class="inputwrap"><select id="masterCore" onchange="renderMasterEditor()"><option value="all">すべて</option><option value="single">1芯</option><option value="2C">2芯</option><option value="3C">3芯</option><option value="4C">4芯</option></select><span class="unit">芯</span></div></div>
+      <div class="field"><label>表示フィルタ</label><div class="inputwrap"><select id="masterCore" onchange="renderMasterEditor()"><option value="all">すべて</option><option value="2C">2芯</option><option value="3C">3芯</option><option value="4C">4芯</option></select><span class="unit">芯</span></div></div>
     </div>
     <div class="tablewrap" style="margin-top:12px"><table id="masterTable"></table></div>
     <div class="actions editOnly">
@@ -169,12 +166,12 @@ function coreLabel(core){return core==='single'?'1芯':(core==='2C'?'2芯':(core
 function displayCore(row){return row.core==='single'?coreLabel(selectedCore()):coreLabel(row.core);}
 function handleCoreModeChange(){ populateSizes(); calculate(); }
 function populateSizes(){const cable=document.getElementById('cableType').value; const rows=(master[cable]||[]).filter(coreAllowed).sort((a,b)=>a.area-b.area); if(!rows.length && master[cable]) rows.push(...master[cable].sort((a,b)=>a.area-b.area));}
-function renderMasterEditor(){const cable=document.getElementById('masterCable').value||document.getElementById('cableType').value; const filter=document.getElementById('masterCore').value; document.getElementById('masterCable').value=cable; const rows=(master[cable]||[]).filter(r=>filter==='all'||r.core===filter).sort((a,b)=>a.area-b.area); const html=['<thead><tr><th>サイズ表示</th><th>断面積[mm²]</th><th>芯数</th><th>基準許容電流[A]</th><th>出典</th><th>削除</th></tr></thead><tbody>']; rows.forEach((r,i)=>{html.push(`<tr data-cable="${cable}" data-label="${r.label}"><td><input class="masterCell" value="${r.label}" data-k="label"></td><td><input class="masterCell" type="number" step="0.01" value="${r.area}" data-k="area"></td><td><select class="masterCell" data-k="core"><option ${r.core==='single'?'selected':''} value="single">1芯</option><option value="2C" ${r.core==='2C'?'selected':''}>2芯</option><option value="3C" ${r.core==='3C'?'selected':''}>3芯</option><option value="4C" ${r.core==='4C'?'selected':''}>4芯</option></select></td><td><input class="masterCell" type="number" step="1" value="${r.ampacity}" data-k="ampacity"></td><td><input class="masterCell" style="width:220px;text-align:left" value="${r.source||''}" data-k="source"></td><td><button class="mini ghost" onclick="this.closest('tr').remove()">削除</button></td></tr>`)}); html.push('</tbody>'); document.getElementById('masterTable').innerHTML=html.join(''); document.getElementById('masterCsv').value=toMasterCsv(cable);}
+function renderMasterEditor(){const cable=document.getElementById('masterCable').value||document.getElementById('cableType').value; const filter=document.getElementById('masterCore').value; document.getElementById('masterCable').value=cable; const rows=(master[cable]||[]).filter(r=>filter==='all'||r.core===filter).sort((a,b)=>a.area-b.area); const html=['<thead><tr><th>サイズ表示</th><th>断面積[mm²]</th><th>芯数</th><th>基準許容電流[A]</th><th>出典</th><th>削除</th></tr></thead><tbody>']; rows.forEach((r,i)=>{html.push(`<tr data-cable="${cable}" data-label="${r.label}"><td><input class="masterCell" value="${r.label}" data-k="label"></td><td><input class="masterCell" type="number" step="0.01" value="${r.area}" data-k="area"></td><td><select class="masterCell" data-k="core"><option value="2C" ${(r.core==='2C'||(r.core==='single'&&selectedCore()==='2C'))?'selected':''}>2芯</option><option value="3C" ${(r.core==='3C'||(r.core==='single'&&selectedCore()==='3C'))?'selected':''}>3芯</option><option value="4C" ${(r.core==='4C'||(r.core==='single'&&selectedCore()==='4C'))?'selected':''}>4芯</option></select></td><td><input class="masterCell" type="number" step="1" value="${r.ampacity}" data-k="ampacity"></td><td><input class="masterCell" style="width:220px;text-align:left" value="${r.source||''}" data-k="source"></td><td><button class="mini ghost" onclick="this.closest('tr').remove()">削除</button></td></tr>`)}); html.push('</tbody>'); document.getElementById('masterTable').innerHTML=html.join(''); document.getElementById('masterCsv').value=toMasterCsv(cable);}
 function applyMasterTable(){const cable=document.getElementById('masterCable').value; const kept=(master[cable]||[]).filter(r=>!Array.from(document.querySelectorAll('#masterTable tbody tr')).some(tr=>tr.dataset.label===r.label)); const edited=[]; document.querySelectorAll('#masterTable tbody tr').forEach(tr=>{const o={cable}; tr.querySelectorAll('[data-k]').forEach(inp=>{o[inp.dataset.k]=inp.value}); o.area=Number(o.area); o.ampacity=Number(o.ampacity); if(o.label&&o.area>0&&o.ampacity>0)edited.push(o);}); master[cable]=[...kept,...edited].sort((a,b)=>a.area-b.area); saveMaster(); populateSizes(); renderMasterEditor(); alert('基準許容電流マスタを反映しました。');}
-function addMasterRow(){const cable=document.getElementById('masterCable').value; const tbody=document.querySelector('#masterTable tbody'); const tr=document.createElement('tr'); tr.dataset.cable=cable; tr.dataset.label=''; tr.innerHTML=`<td><input class="masterCell" value="新規" data-k="label"></td><td><input class="masterCell" type="number" step="0.01" value="0" data-k="area"></td><td><select class="masterCell" data-k="core"><option value="single">1芯</option><option value="2C">2芯</option><option value="3C">3芯</option><option value="4C">4芯</option></select></td><td><input class="masterCell" type="number" step="1" value="0" data-k="ampacity"></td><td><input class="masterCell" style="width:220px;text-align:left" value="手入力" data-k="source"></td><td><button class="mini ghost" onclick="this.closest('tr').remove()">削除</button></td>`; tbody.appendChild(tr);}
+function addMasterRow(){const cable=document.getElementById('masterCable').value; const tbody=document.querySelector('#masterTable tbody'); const tr=document.createElement('tr'); tr.dataset.cable=cable; tr.dataset.label=''; tr.innerHTML=`<td><input class="masterCell" value="新規" data-k="label"></td><td><input class="masterCell" type="number" step="0.01" value="0" data-k="area"></td><td><select class="masterCell" data-k="core"><option value="2C">2芯</option><option value="3C">3芯</option><option value="4C">4芯</option></select></td><td><input class="masterCell" type="number" step="1" value="0" data-k="ampacity"></td><td><input class="masterCell" style="width:220px;text-align:left" value="手入力" data-k="source"></td><td><button class="mini ghost" onclick="this.closest('tr').remove()">削除</button></td>`; tbody.appendChild(tr);}
 function toMasterCsv(cable){const rows=master[cable]||[]; return ['cable,label,area,ampacity,core,source',...rows.map(r=>[r.cable,r.label,r.area,r.ampacity,r.core,r.source].join(','))].join('\n');}
 function downloadMasterCsv(){const text=Object.keys(master).flatMap(c=>toMasterCsv(c).split('\n').slice(c==='IV'?0:1)).join('\n'); downloadText(text,'cable_ampacity_master.csv','text/csv');}
-function loadCsvToEditor(){const text=document.getElementById('masterCsv').value.trim(); if(!text)return; const lines=text.split(/\r?\n/).filter(Boolean); const head=lines.shift().split(',').map(s=>s.trim()); for(const line of lines){const cols=line.split(','); const obj={}; head.forEach((h,i)=>obj[h]=cols[i]); const cable=obj.cable||document.getElementById('masterCable').value; if(!master[cable])master[cable]=[]; master[cable].push({cable,label:obj.label,area:Number(obj.area),ampacity:Number(obj.ampacity),core:obj.core||'single',source:obj.source||'CSV'});} saveMaster(); initSelectors(); renderMasterEditor(); populateSizes(); alert('CSVを反映しました。');}
+function loadCsvToEditor(){const text=document.getElementById('masterCsv').value.trim(); if(!text)return; const lines=text.split(/\r?\n/).filter(Boolean); const head=lines.shift().split(',').map(s=>s.trim()); for(const line of lines){const cols=line.split(','); const obj={}; head.forEach((h,i)=>obj[h]=cols[i]); const cable=obj.cable||document.getElementById('masterCable').value; if(!master[cable])master[cable]=[]; master[cable].push({cable,label:obj.label,area:Number(obj.area),ampacity:Number(obj.ampacity),core:obj.core||'2C',source:obj.source||'CSV'});} saveMaster(); initSelectors(); renderMasterEditor(); populateSizes(); alert('CSVを反映しました。');}
 function loadTypePf(type){return {manual:null,motor:80,pump:80,ac:85,led:95,outlet:90,inverter:95}[type];}
 function applyLoadType(){const v=loadTypePf(document.getElementById('loadType').value); if(v)document.getElementById('pf').value=v;}
 function toggleMode(){const m=document.getElementById('inputMode').value; document.getElementById('currentField').classList.toggle('hide',m!=='current'); document.getElementById('capacityField').classList.toggle('hide',m==='current'); document.getElementById('pfField').classList.toggle('hide',m==='current'||m==='kva'); document.getElementById('loadTypeField').classList.toggle('hide',m==='current'||m==='kva'); document.getElementById('capUnit').textContent=m==='kva'?'kVA':'kW';}
@@ -187,7 +184,7 @@ function dropLimitAutoReason(){const L=Number(document.getElementById('length').
 function handleDropLimitMode(){const auto=document.getElementById('dropLimitMode').value==='auto'; const input=document.getElementById('dropLimit'); input.readOnly=auto; updateDropLimitAuto();}
 function updateDropLimitAuto(doCalc=true){const mode=document.getElementById('dropLimitMode'); if(!mode)return; const auto=mode.value==='auto'; const input=document.getElementById('dropLimit'); if(auto){input.value=dropLimitAutoValue(); input.readOnly=true;} else {input.readOnly=false;} const hint=document.getElementById('dropAutoHint'); if(hint)hint.textContent=auto?'自動設定：'+dropLimitAutoReason():'手入力モード：任意の許容電圧降下率を入力できます。'; if(doCalc && lastResult) calculate();}
 function currentDropLimit(){updateDropLimitAuto(false); return Number(document.getElementById('dropLimit').value)||0;}
-function handleSystemChange(){applySystemDefaults(); populateSizes(); calculate();}
+function handleSystemChange(){applySystemDefaults(); populateSizes(); saveFormState(); calculate();}
 function calcCurrent(){const m=document.getElementById('inputMode').value; const V=calcVoltageValue(); const sys=document.getElementById('system').value; const phase=(sys==='3p3w'||sys==='3p4w')?Math.sqrt(3):1; if(m==='current')return Number(document.getElementById('current').value); const cap=Number(document.getElementById('capacity').value)*1000; if(m==='kva')return cap/(phase*V); const pf=Math.max(Number(document.getElementById('pf').value)/100,0.01); return cap/(phase*V*pf);}
 function vdCoeff(sys){return { '1p2w':35.6, '1p3w':17.8, '3p3w':30.8, '3p4w':17.8 }[sys]||30.8;}
 function tempFactor(t){if(t<=30)return 1.0;if(t<=35)return .96;if(t<=40)return .91;if(t<=45)return .87;if(t<=50)return .82;if(t<=55)return .76;if(t<=60)return .71;return .65;}
@@ -223,8 +220,16 @@ function downloadText(text,name,type){const blob=new Blob([text],{type}); const 
 
 function openMasterModal(){const el=document.getElementById('masterModal'); if(el){renderMasterEditor(); el.classList.add('show'); document.body.style.overflow='hidden';}}
 function closeMasterModal(){const el=document.getElementById('masterModal'); if(el){el.classList.remove('show'); document.body.style.overflow='';}}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMasterModal();});
-initSelectors(); applySystemDefaults(); toggleMode(); handleDropLimitMode(); renderMasterEditor(); populateSizes(); calculate();
+
+function openSourceModal(){const el=document.getElementById('sourceModal'); if(el){el.classList.add('show'); document.body.style.overflow='hidden';}}
+function closeSourceModal(){const el=document.getElementById('sourceModal'); if(el){el.classList.remove('show'); document.body.style.overflow='';}}
+const FORM_KEY='vds_form_v61';
+function saveFormState(){const ids=['siteName','circuitName','circuitType','system','voltage','inputMode','loadType','current','capacity','pf','length','supplyMode','dropLimitMode','dropLimit','futureRate','breaker','cableType','coreMode','install','temp','circuits']; const data={}; ids.forEach(id=>{const el=document.getElementById(id); if(el)data[id]=el.value;}); localStorage.setItem(FORM_KEY,JSON.stringify(data));}
+function loadFormState(){try{const data=JSON.parse(localStorage.getItem(FORM_KEY)||'{}'); Object.entries(data).forEach(([id,val])=>{const el=document.getElementById(id); if(el && Array.from(el.options||[]).some(o=>o.value===val) || (el && !el.options)){el.value=val;}});}catch(e){}}
+function bindAutoSave(){document.querySelectorAll('input,select,textarea').forEach(el=>{if(el.id && el.id!=='masterCsv')el.addEventListener('change',()=>{saveFormState();}); if(el.id && ['siteName','circuitName'].includes(el.id))el.addEventListener('input',saveFormState);});}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMasterModal();closeSourceModal();}});
+initSelectors(); const hasSavedForm=!!localStorage.getItem(FORM_KEY); if(hasSavedForm){loadFormState();} else {applySystemDefaults();} toggleMode(); handleDropLimitMode(); renderMasterEditor(); populateSizes(); bindAutoSave(); calculate();
 </script>
 
 <script>
