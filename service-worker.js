@@ -1,4 +1,4 @@
-const APP_VERSION = '7.0';
+const APP_VERSION = "8.0";
 const CACHE_NAME = `voltage-drop-selector-v${APP_VERSION.replace(/\./g,'')}`;
 const ASSETS = ['./', './index.html', './manifest.json', './icon-180.png', './icon-192.png', './icon-512.png'];
 
